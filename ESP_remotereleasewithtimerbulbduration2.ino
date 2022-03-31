@@ -2,7 +2,10 @@
 //By Analogue Photography Talk - Dec 2021
 // Youtube channel https://www.youtube.com/channel/UCxGzTCecw_vtLpeFYcNhSOw
 //Website : www.sgwetplate.com
-
+//log
+//31 march 
+//change min/max to 200, 3500 so that the dreegrees is almost 180degrees
+//change the steps to +5,-5 so that it has more torque to push the plunger
 //This is coded for a ESP32 Dev Module for the Remote Mechanical cable release unit.
 //It uses the classic Bluetooth to communicate with the mobile app
 
@@ -44,7 +47,8 @@ void setup() {
   ESP32PWM::allocateTimer(2);
   ESP32PWM::allocateTimer(3);
   myservo.setPeriodHertz(50);    // standard 50 hz servo
-  myservo.attach(servoPin, 500, 2400); // attaches the servo on pin 18 to the servo object
+ // myservo.attach(servoPin, 500, 2400); // attaches the servo on pin 18 to the servo object
+   myservo.attach(servoPin, 200, 3500); // attaches the servo on pin 18 to the servo object
   // using default min/max of 1000us and 2000us
   // different servos may require different min/max settings
   // for an accurate 0 to 180 sweep
@@ -54,17 +58,17 @@ void setup() {
 
 //fuction to press n release immediately
 void trigger(){
-for (pos = 180; pos >= 0; pos -= 10) { // goes from 180 degrees to 0 degrees
+for (pos = 180; pos >= 0; pos -= 5) { // goes from 180 degrees to 0 degrees
     myservo.write(pos);    // tell servo to go to position in variable 'pos'
-    delay(25);             // waits 15ms for the servo to reach the position
+    delay(15);             // waits 15ms for the servo to reach the position
      
   }
   Serial.println("0 reached");
- 
-for (pos = 0; pos <= 180; pos += 20) { // goes from 0 degrees to 180 degrees
+ delay(800);
+for (pos = 0; pos <= 180; pos += 5) { // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
     myservo.write(pos);    // tell servo to go to position in variable 'pos'
-    delay(25);             // waits 15ms for the servo to reach the position
+    delay(15);             // waits 15ms for the servo to reach the position
     
   }
   Serial.println("180 reached");
@@ -74,9 +78,9 @@ for (pos = 0; pos <= 180; pos += 20) { // goes from 0 degrees to 180 degrees
 
 //fuction to press only
 void trigger_ON(){
-for (pos = 180; pos >= 0; pos -= 10) { // goes from 180 degrees to 0 degrees
+for (pos = 180; pos >= 0; pos -= 5) { // goes from 180 degrees to 0 degrees
     myservo.write(pos);    // tell servo to go to position in variable 'pos'
-    delay(25);             // waits 15ms for the servo to reach the position
+    delay(15);             // waits 15ms for the servo to reach the position
      
   }
   Serial.println("0 reached");
@@ -87,10 +91,10 @@ for (pos = 180; pos >= 0; pos -= 10) { // goes from 180 degrees to 0 degrees
 
 //fuction to release only
 void trigger_OFF(){
-for (pos = 0; pos <= 180; pos += 20) { // goes from 0 degrees to 180 degrees
+for (pos = 0; pos <= 180; pos += 5) { // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
     myservo.write(pos);    // tell servo to go to position in variable 'pos'
-    delay(25);             // waits 15ms for the servo to reach the position
+    delay(15);             // waits 15ms for the servo to reach the position
     
   }
   Serial.println("180 reached");
