@@ -1,0 +1,4 @@
+**31 March 2022
+ESP_remotereleasewithtimerbulbduration2.ino
+Change min/max to 200, 3500 so that the dreegrees is almost 180degrees
+Change the steps to +5,-5 so that it has more torque to push the plunger
